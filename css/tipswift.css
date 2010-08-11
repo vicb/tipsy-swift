@@ -2,28 +2,27 @@
 
 .tipswift {
   padding: 0;
-  font: 11px "Lucida Grande";
   background-color: #000;
-  background-color: rgba(0, 0, 0, 0.90);
   color: #fff;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
 }
 
 .tipswift input {
   margin: 0 2px;
-  padding: 4px 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  font-size: 10px;
+  padding: 3px 5px;
+  background-color: #222;
+  border: 1px solid #555;
   outline: none;
   color: #fff;
-  -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
 }
 
 .tipswift input:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background-color: #444;
+}
+
+.tipswift input[type=button] {
   cursor: pointer;
 }
 
@@ -36,9 +35,12 @@
 
 .tipsy { padding: 5px; font-size: 11px; position: absolute; z-index: 100000; }
 .tipsy-inner { padding: 5px 10px; background-color: #000; color: #fff; text-align: center; }
-.tipsy-inner { border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px; }
+.tipsy-inner { 
+  border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px;
+  box-shadow: 0 0 6px #000000; -moz-box-shadow: 0 0 6px #000000; -webkit-box-shadow: 0 0 6px #000000;
+}
 .tipsy-arrow { position: absolute; width: 0; height: 0; border: 9px solid transparent; border-color: transparent transparent #000; }
-.tipsy-n .tipsy-arrow { top: -9px; left: 50%; width: 0; height: 0; margin-left: -9px;  }
+.tipsy-n .tipsy-arrow { top: -9px; left: 50%; margin-left: -9px;  }
   .tipsy-nw .tipsy-arrow { top: -9px; left: 10px; }
   .tipsy-ne .tipsy-arrow { top: -9px; right: 10px; }
 .tipsy-s .tipsy-arrow { bottom: -9px; left: 50%; margin-left: -9px; border-color: #000 transparent transparent; }

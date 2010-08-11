@@ -20,13 +20,13 @@
               add: {
                 label: 'Add',
                 action: function(){
-                  var val = this.find(':text').val();
-                  if (!val) {
-                    this.find(':text').css('border-color', 'red');
+                  var input = this.find(':text');
+                  if (!input.val()) {
+                    input.css('border-color', 'red');
                     return false;
                   }
                   else {
-                    $('<li/>').text(val).append('<a href="#">x</a>').appendTo('#list-item');
+                    $('<li/>').text(input.val()).append('<a class="link" href="#" title="delete">x</a>').appendTo('#list-item');
                   }
                 }
               },
@@ -89,7 +89,7 @@
       ul {
         margin: 5px 0;
         padding: 0;
-        width: 150px;
+        width: 30%;
         list-style: none;
       }
       ul li {
@@ -102,6 +102,8 @@
       ul li a {
         float: right;
         text-decoration: none;
+      }
+      .link {
         color: red;
       }
       div.frame
@@ -121,16 +123,16 @@
   <body>
     <h1>TipSwift</h1>
     <p>TipSwift is a tiny jQuery plugin which allows elegant, and user friendly inline dialogs for confirmations, prompts and more.</p>
-    <p>Click "Add item" or one of the "x" links below to see it in action.</p>
-    <p>TipSwift depends on <a target="_blank" href="http://github.com/jaz303/tipsy" title="tipsy">tipsy</a> to display the tooltip</p>
+    <p>Click "Add item" or one of the "<span class="link">x</span>" links below to see it in action.</p>
+    <p>TipSwift depends on <a target="_blank" href="http://github.com/jaz303/tipsy" title="tipsy">tipsy</a> to display the tooltips.</p>
     <p>Currently tested in Safari, Firefox, and Chrome.</p>
 
     <h2>Demo</h2>
     <div class="frame">
       <ul id="list-item">
-        <li>foo<a href="#">x</a></li>
-        <li>bar<a href="#">x</a></li>
-        <li>baz<a href="#" style="position:absolute; right: 40%">x (right)</a></li>
+        <li>foo<a class="link" href="#" title="delete">x</a></li>
+        <li>bar<a class="link" href="#" title="delete">x</a></li>
+        <li>baz<a class="link" href="#"  title="delete" style="position:absolute; right: 40%">x (right)</a></li>
       </ul>
       <input id="add-item" type="button" value="Add Item" />
     </div>
