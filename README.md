@@ -77,9 +77,15 @@ the mainstream.
 
 ## History ##
 
+v1.0.1 - 2010-08-11
+
+  * fix a bug when clicking on a trigger with an opened tipswift  
+  * improve show and hide animations
+
 v1.0.0 - 2010-08-11
 
   * Initial release.
+  
 
 ## License ##
 
