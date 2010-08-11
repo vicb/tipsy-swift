@@ -5,6 +5,10 @@ ranging from prompts to confirmations for an ultra-sexy user interface.
 
 TipSwift is essentially a port of [swift](http://github.com/visionmedia/swift) to [tipsy](http://github.com/jaz303/tipsy).
 
+## Demo ##
+
+[TipSwift Demo](http://vicb.github.com/tipsy-swift/demo/demo.html)
+
 ## Usage ##
 
 Include jquery, tipsy, and tipswift in the document head:
