@@ -2,13 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>TipSwift Demo</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
     <script type="text/javascript" src="../lib/jquery.tipsy.js"></script>
     <script type="text/javascript" src="../lib/jquery.tipswift.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/tipswift.css"></link>
 
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
       jQuery(function($) {
         $('#add-item').click(function(e) {
           e.preventDefault();
@@ -57,26 +59,32 @@
           });
         });
       });
-    </script>
+    //]]></script>
 
     <style type="text/css" media="screen">
       body {
         font: 1em "Lucida Grande", "Arial";
-        padding: 20px;
+        padding: 30px;
+        width: 960px;
+        margin: 50px auto;
+        border: 1px solid #aaa;
+        -moz-box-shadow: 0 0 40px #aaa;
+        -moz-border-radius: 20px;
+        -webkit-box-shadow: 0 0 40px #aaa;
+        -webkit-border-radius: 20px;
+        box-shadow: 0 0 40px #aaa;
+        border-radius: 20px;
       }
       h1, h2 {
         color: red;
+        margin: .5em 0;
       }
       h1 {
         font-size: 2em;
         text-align: center;
       }
       h2 {
-        margin-top: 40px;
         font-size: 1.8em;
-      }
-      p {
-        line-height: 1.8;
       }
       ul {
         margin: 5px 0;
@@ -96,29 +104,44 @@
         text-decoration: none;
         color: red;
       }
-      code {
-        white-space: pre;
+      div.frame
+      {
+        border: 1px solid gray;
+        background-color: #eee;
+        margin: 0;
+        padding: 10px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+
       }
 
     </style>
   </head>
   <body>
     <h1>TipSwift</h1>
-    <p>Swift is a tiny jQuery plugin which allows elegant, and user friendly inline dialogs for confirmations, prompts and more. Click "Add item" or one of the "x" links below to see it in action. Currently tested in Safari, Firefox, and Chrome.</p>
+    <p>TipSwift is a tiny jQuery plugin which allows elegant, and user friendly inline dialogs for confirmations, prompts and more.</p>
+    <p>Click "Add item" or one of the "x" links below to see it in action.</p>
+    <p>TipSwift depends on <a target="_blank" href="http://github.com/jaz303/tipsy" title="tipsy">tipsy</a> to display the tooltip</p>
+    <p>Currently tested in Safari, Firefox, and Chrome.</p>
 
     <h2>Demo</h2>
-    <ul id="list-item">
-      <li>foo<a href="#">x</a></li>
-      <li>bar<a href="#">x</a></li>
-      <li>baz<a href="#" style="position:absolute; right: 40%">x</a></li>
-    </ul>
-    <input id="add-item" type="button" value="Add Item" />
+    <div class="frame">
+      <ul id="list-item">
+        <li>foo<a href="#">x</a></li>
+        <li>bar<a href="#">x</a></li>
+        <li>baz<a href="#" style="position:absolute; right: 40%">x (right)</a></li>
+      </ul>
+      <input id="add-item" type="button" value="Add Item" />
+    </div>
 
     <h2>Information</h2>
-    <ol>
-      <li>View the <a href="http://github.com/vicb/tipsy-swift">source</a></li>
-      <li>Submit an <a href="http://github.com/vicb/tipsy-swift/issues">issue</a></li>
-    </ol>
-
+    <div class="frame">
+      <ol>
+        <li>View the <a target="_blank" href="http://github.com/vicb/tipsy-swift">source</a></li>
+        <li>Submit an <a target="_blank" href="http://github.com/vicb/tipsy-swift/issues">issue</a></li>
+      </ol>
+    </div>
+    
   </body>
 </html>
