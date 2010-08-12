@@ -20,13 +20,14 @@ Include jquery, tipsy, and tipswift in the document head:
 Use a jQuery selector in your document ready function:
 
     jQuery(function($) {
-        $("#target").click(function(){ $(this).tipswift("label", options)} );
+        $("#target").click(function(){ $(this).tipswift(options)} );
     });
 
 ## Options ##
 
 Tipswift options are listed in a javascript object:
 
+- title: HTML for the dialog title,
 - body: HTML for the dialog body,
 - buttons: hash of buttons, each key can have the following options:
   - label: button label [required],
@@ -76,6 +77,12 @@ the mainstream.
 * [Victor Berchet](http://github.com/vicb) is the author of tipswift.
 
 ## History ##
+
+v1.1.0 - 2010-08-12
+
+  * API BREAK: tipswift(options) now take a single hash as parameter, label has been moved to the hash and renamed title
+  * refactoring
+  * allow for dynamic titles
 
 v1.0.1 - 2010-08-11
 
