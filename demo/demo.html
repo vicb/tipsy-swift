@@ -48,7 +48,7 @@
               'delete': {
                 label: 'Delete',
                 action: function(e) {
-                  e.target.parents('li').fadeOut(function() {
+                  $(e.target).parents('li').fadeOut(function() {
                     $(this).remove()
                   });
                 }

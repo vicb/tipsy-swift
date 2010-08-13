@@ -78,6 +78,11 @@ the mainstream.
 
 ## History ##
 
+v1.1.1 - 2010-08-13
+
+  * API BREAK: the target of events passed to button actions is no more a jQuery object
+  * empty btnActions while closing opened instances
+
 v1.1.0 - 2010-08-12
 
   * API BREAK: tipswift(options) now take a single hash as parameter, label has been moved to the hash and renamed title
