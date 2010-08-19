@@ -68,7 +68,7 @@ the mainstream.
 
 ## Requirements ##
 
-* jQuery 1.3.2+
+* jQuery 1.4.2+
 * tipsy 1.0.0a + custom animation patch
 
 ## Authors & Contributors ##
@@ -77,6 +77,10 @@ the mainstream.
 * [Victor Berchet](http://github.com/vicb) is the author of tipswift.
 
 ## History ##
+
+b1.1.2 - 2010-08-19
+
+  * Requires jQuery 1.4.2+
 
 v1.1.1 - 2010-08-13
 
