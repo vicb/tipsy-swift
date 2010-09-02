@@ -1,9 +1,14 @@
 # TipSwift #
 
-TipSwift is a tiny jQuery plugin for displaying inline context-based dialog boxes
-ranging from prompts to confirmations for an ultra-sexy user interface.
+TipSwift is a tiny jQuery plugin for displaying tooltips and inline context-based
+dialog boxes ranging from prompts to confirmations for an ultra-sexy user interface.
 
-TipSwift is essentially a port of [swift](http://github.com/visionmedia/swift) to [tipsy](http://github.com/jaz303/tipsy).
+TipSwift has started as a port of [swift](http://github.com/visionmedia/swift) to [tipsy](http://github.com/jaz303/tipsy).
+The tipsy library was required to use TipSwift v1.
+
+As of v2, TipSwift integrates its own tooltip library (which is mostly tipsy) then
+it can now be used on its own without requiring tipsy. The major advantage is that
+both a tip and a dialog can be displayed on an element.
 
 ## Demo ##
 
@@ -11,7 +16,7 @@ TipSwift is essentially a port of [swift](http://github.com/visionmedia/swift) t
 
 ## Usage ##
 
-Include jquery, tipsy, and tipswift in the document head:
+Include jquery and tipswift in the document head:
 
     <script type="text/javascript" src="jquery.tipsy.js"></script>
     <script type="text/javascript" src="jquery.tipswift.js"></script>
@@ -20,65 +25,82 @@ Include jquery, tipsy, and tipswift in the document head:
 Use a jQuery selector in your document ready function:
 
     jQuery(function($) {
-        $("#target").click(function(){ $(this).tipswift(options)} );
+        $("#target").tipSwift({ 
+          <options>,
+          tip: { <options for the tip> },
+          dialog: { <options for the dialog> }
+        });
     });
 
 ## Options ##
 
-Tipswift options are listed in a javascript object:
+Tipswift options are listed in a javascript object (with their default values):
 
-- title: HTML for the dialog title,
-- body: HTML for the dialog body,
-- buttons: hash of buttons, each key can have the following options:
-  - label: button label [required],
-  - action: button onclick callback:
+    $.fn.tipSwift.defaults = {
+      live: false,                                          // [GLOBAL] use live events (make tipswift work on dynamically added items)
+      gravity: 'n',                                         // tip gravity
+      offset: 0,                                            // offset from the element edge in pixel
+      opacity: 0.8,                                         // opacity [0..1]
+      showEffect: $.fn.tipSwift.effects.show,               // effect used to show the tip
+      hideEffect: $.fn.tipSwift.effects.hide,               // effect used to hide the tip (must eventually remove() the tip)
+      extraClass: [],                                       // extra classes to add the tip
+      tip: {
+        trigger: 'events',                                  // what triggers showing the tip ('events' or 'manual')
+        delayIn: 0,                                         // delay before showing the tip in ms
+        delayOut: 0,                                        // delay before hiding the tip in ms
+        html: false,                                        // wether to use html for the tip content
+        title: 'title',                                     // attribute name or function to use to set the tip title
+        fallback: '',                                       // fallback text when the title is empty
+        showOn: ['mouseenter', 'focusin'],                  // which events trigger showing the tip
+        hideOn: ['mouseleave', 'focusout']                  // which events trigger hiding the tip
+      },
+      dialog: {
+        trigger: 'events',                                  // what triggers showing the dialog ('events' or 'manual')
+        showOn: ['click'],                                  // which events trigger showing the dialog
+        dialogTemplate: $.fn.tipSwift.templates.dialog,     // the function used to build the dialog markup
+        buttonTemplate: $.fn.tipSwift.templates.button      // the function used to build the buttons markup
+      }
+    };
+
+### Notes ###
+
+The 'live' options is global (you can not define a specific value for tip or dialog).
+All others options can be overriden at a tip / dialog level.
+
+Do not define tip in the options when calling tipSwift if you don't want to use a tip,
+the same is also true for dialog.
+
+In order to display a dialog, you **must** define all the non optional properties:
+
+- title: HTML for the dialog title (or a function returning the title),
+- body (optional): HTML for the dialog body (or a function returning the title),
+- buttons: hash of buttons (or a function returning the hash), each key can have the following options:
+  - label: button label,
+  - action (optional): button onclick callback:
     - receive the event targeting the tipswift target as a parameter,
     - should return false to close the dialog,
-    - when no action is specified, the default action closes the dialog.
-- tipsy: tipsy options
-- dialogTpl: function returning the dialog HTML markup. Function arguments are:
-  - label: the dialog label,
-  - options: the dialog options,
-  - buttons: the buttons HTML markup.
-- buttonTpl: function returning a button markup. Function arguments are:
-  - name: the button name,
-  - value: the button value (label),
-  - id: this must be set as element id in order to bind the click event.
-
-The options defaults are as follow:
-
-- dialogTpl = `$.fn.tipswift.templates.dialog`,
-- buttontpl = `$.fn.tipswift.templates.button`,
-- tipsy =
-  - trigger = 'manual',
-  - gravity = `$.fn.tipsy.autoWE`,
-  - html = true,
-  - showTip = `function(options) {$.fn.tipswift.effects.show(this, options);}`,
-  - hideTip = `function(options) {$.fn.tipswift.effects.hide(this, options);}`
-
-## Warning ##
-
-**For now a custom version a tipsy is required in order to be able to customize the
-show and hide effects.**
-
-This version includes [commit c33b2372a3103b7543c2](http://github.com/vicb/tipsy/commit/c33b2372a3103b7543c28372e2e64cec7c535030) and can be found [here](http://github.com/vicb/tipsy).
-
-The documentation will be updated when this commit eventually gets integrated in
-the mainstream.
+    - when no action is specified, the default is to close the dialog.
 
 ## Requirements ##
 
 * jQuery 1.4.2+
-* tipsy 1.0.0a + custom animation patch
 
 ## Authors & Contributors ##
 
-* [TJ Holowaychuk](http://github.com/visionmedia) is the author of the original swift,
+* [Jason Frame](ttp://github.com/jaz303) is the author of tipsy,
+* [TJ Holowaychuk](http://github.com/visionmedia) is the author swift,
 * [Victor Berchet](http://github.com/vicb) is the author of tipswift.
 
 ## History ##
 
-b1.1.2 - 2010-08-19
+v2.0.0
+
+Major rewrite:
+  * new: ability to display both a tip and a dialog for an element (each can define custom options),
+  * API break: tipswift() has been renammed to tipSwift(),
+  * API break: options have changed,
+
+v1.1.2 - 2010-08-19
 
   * Requires jQuery 1.4.2+
 

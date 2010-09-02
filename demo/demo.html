@@ -4,24 +4,42 @@
     <title>TipSwift Demo</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/jquery.tipswift.css"></link>
+    <link rel="stylesheet" type="text/css" href="../css/demo.css"></link>
 
-    <script type="text/javascript" src="../lib/jquery.tipsy.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
     <script type="text/javascript" src="../lib/jquery.tipswift.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/tipswift.css"></link>
 
     <script type="text/javascript">//<![CDATA[
       jQuery(function($) {
+        $('.simple-tip').tipSwift({tip: {}});
+
+        $('.delayed-tip').tipSwift({tip: {delayIn: 1000, delayOut: 1000}});
+
+        $('.simple-dialog').tipSwift({
+          gravity: $.fn.tipSwift.gravity.autoWE,
+          showEffect: $.fn.tipSwift.effects.slideOutWE,
+          hideEffect: $.fn.tipSwift.effects.slideInWE,
+          tip: {},
+          dialog: {
+            title: 'Dialog',
+            body: 'This is my body !',
+            buttons: {
+              close : { label: 'close' }
+            }
+          }
+        });
+
         // Add an item
-        $('#add-item').click(function(e) {
-          e.preventDefault();
-          $(this).tipswift({
-            title: 'Item:',
-            body: '<input type="text"/>',
+        $('#add-item').tipSwift({
+          tip: {},
+          dialog: {
+            title: 'Add an item',
+            body: 'Item name: <input type="text"/>',
             buttons: {
               add: {
                 label: 'Add',
-                action: function(){
+                action: function() {
                   var input = this.find(':text');
                   if (!input.val()) {
                     input.css('border-color', 'red');
@@ -32,128 +50,96 @@
                   }
                 }
               },
-              cancel: {
-                label: 'Cancel'
-              }
+              cancel: { label: 'cancel'}
             }
-          });
+          }
         });
 
         // Remove an item
-        $('#list-item a').live('click', function(e) {
-          e.preventDefault();
-          $(this).tipswift({
-            title: 'Delete this item?',
+        $('#list-item a').tipSwift({
+          gravity: $.fn.tipSwift.gravity.autoWE,
+          live: true,
+          tip: {
+            gravity: 's',
+            opacity: 0.6,
+            showEffect: $.fn.tipSwift.effects.fadeIn,
+            hideEffect: $.fn.tipSwift.effects.fadeOut
+          },
+          dialog: {
+            showEffect: $.fn.tipSwift.effects.slideOutWE,
+            hideEffect: $.fn.tipSwift.effects.slideInWE,
+            opacity: 0.9,
+            extraClass: ['delete'],
+            title: 'Confirmation',
+            body: 'Do you really want to delete this item ?',
             buttons: {
-              'delete': {
-                label: 'Delete',
+              yes: {
+                label: 'Yes',
                 action: function(e) {
-                  $(e.target).parents('li').fadeOut(function() {
-                    $(this).remove()
-                  });
+                  $(e.target).parents('li').fadeOut(function() { $(this).remove() });                  
                 }
               },
-              'cancel': {
-                label: 'Cancel',
-                action: function(e) {
-                  if (typeof console !== 'undefined') { console.log('cancel called'); }
-                }
-              }
+              no: {label: 'no'}
             }
-          });
+          }
         });
 
+        // Dynamic content
         var seen = 1;
-        // Dynamic title
-        $('#list-item-dynamic a').click(function(e) {          
-          e.preventDefault();
-          $(this).tipswift({
-            title: 'I have been opened ' + (seen++) + ' times',
+        $('#list-item-dynamic a').tipSwift({
+          gravity: $.fn.tipSwift.gravity.autoWE,
+          showEffect: $.fn.tipSwift.effects.slideOutWE,
+          hideEffect: $.fn.tipSwift.effects.slideInWE,
+          tip: {
+            title: function() { return 'opened ' + (seen - 1) + ' times'; }
+          },
+          dialog: {
+            title: function() { return seen < 4 ? 'Keep going' : 'Stop playing now !'; },
+            body: function() { return 'I have been opened ' + (seen++) + ' times'; },
             buttons: {
-              'ok': { label: 'Ok' }
+              close: {label: 'close'}
             }
-          });
+          }
         });
+
       });
     //]]></script>
 
-    <style type="text/css" media="screen">
-      body {
-        font: 1em "Lucida Grande", "Arial";
-        padding: 30px;
-        width: 960px;
-        margin: 50px auto;
-        border: 1px solid #aaa;
-        -moz-box-shadow: 0 0 40px #aaa;
-        -moz-border-radius: 20px;
-        -webkit-box-shadow: 0 0 40px #aaa;
-        -webkit-border-radius: 20px;
-        box-shadow: 0 0 40px #aaa;
-        border-radius: 20px;
-      }
-      h1, h2 {
-        color: red;
-        margin: .5em 0;
-      }
-      h1 {
-        font-size: 2em;
-        text-align: center;
-      }
-      h2 {
-        font-size: 1.8em;
-      }
-      ul {
-        margin: 5px 0;
-        padding: 0;
-        width: 30%;
-        list-style: none;
-      }
-      ul li {
-        padding: 5px 10px;
-        border-bottom: 1px solid #ddd;
-      }
-      ul li:last-child {
-        border-bottom: none;
-      }
-      ul li a {
-        float: right;
-        text-decoration: none;
-      }
-      .link {
-        color: red;
-      }
-      div.frame
-      {
-        border: 1px solid gray;
-        background-color: #eee;
-        margin: 0;
-        padding: 10px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-
-      }
-
-    </style>
   </head>
   <body>
     <h1>TipSwift</h1>
-    <p>TipSwift is a tiny jQuery plugin which allows elegant, and user friendly inline dialogs for confirmations, prompts and more.</p>
+    <p>TipSwift is a tiny jQuery plugin able to display tooltips and user friendly inline dialogs for confirmations, prompts and more.</p>
     <p>Click "Add item" or one of the "<span class="link">x</span>" links below to see it in action.</p>
-    <p>TipSwift depends on <a target="_blank" href="http://github.com/jaz303/tipsy" title="tipsy">tipsy</a> to display the tooltips.</p>
-    <p>Currently tested in Safari, Firefox, and Chrome.</p>
+    <p>TipSwift is largely inspired by <a target="_blank" href="http://github.com/jaz303/tipsy" title="tipsy">tipsy</a>
+    and <a target="_blank" href="http://github.com/visionmedia/swift" title="swift">swift</a></p>
 
     <h2>Demo</h2>
+
+    <h3>Simple tip</h3>
+
+    <a href="#" class="simple-tip" title="working ?">hover over me</a>
+
+    <h3>Delayed</h3>
+
+    <a href="#" class="delayed-tip" title="working ?">hover over me and wait!</a>
+
+
+    <h3>Dialogs</h3>
+
+    <a href="#" class="simple-dialog" title="click on me">hover over me</a>
+
+    <h3>Concrete example</h3>
+
     <div class="frame">
       <ul id="list-item">
         <li>foo<a class="link" href="#" title="delete">x</a></li>
         <li>bar<a class="link" href="#" title="delete">x</a></li>
         <li>baz<a class="link" href="#"  title="delete" style="position:absolute; right: 40%">x (right)</a></li>
       </ul>
-      <input id="add-item" type="button" value="Add Item" />
+      <input id="add-item" type="button" value="Add Item" title="Click to add an item to the list"/>
     </div>
 
-    <h2>Dynamic title</h2>
+    <h3>Dynamic content</h3>
     <div class="frame">
       <ul id="list-item-dynamic">
         <li>foo<a class="link" href="#" title="test">x</a></li>

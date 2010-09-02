@@ -1,0 +1,90 @@
+.tipswift {
+  font-size: 0.7em;
+}
+
+.tipswift-title, .tipswift-body, .tipswift-button {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.tipswift-title {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.tipswift-button {
+  text-align: right;
+}
+
+.tipswift.dialog.delete .tipswift-inner {
+  background-color: #ff2222;
+}
+
+.tipswift.dialog.delete {
+  border-color: red;
+}
+
+.tipswift.dialog.delete input {
+  background-color: #f00;
+}
+
+/* Demo */
+
+body {
+  font: 1em "Lucida Grande", "Arial";
+  padding: 30px;
+  width: 960px;
+  margin: 50px auto;
+  border: 1px solid #aaa;
+  -moz-box-shadow: 0 0 40px #aaa;
+  -moz-border-radius: 20px;
+  -webkit-box-shadow: 0 0 40px #aaa;
+  -webkit-border-radius: 20px;
+  box-shadow: 0 0 40px #aaa;
+  border-radius: 20px;
+}
+h1, h2, h3 {
+  color: red;
+  margin: .5em 0;
+}
+h1 {
+  font-size: 2em;
+  text-align: center;
+}
+h2 {
+  font-size: 1.8em;
+}
+h3 {
+  font-size: 1.5em;
+}
+ul {
+  margin: 5px 0;
+  padding: 0;
+  width: 30%;
+  list-style: none;
+}
+ul li {
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+}
+ul li:last-child {
+  border-bottom: none;
+}
+ul li a {
+  float: right;
+  text-decoration: none;
+}
+.link {
+  color: red;
+}
+div.frame
+{
+  border: 1px solid gray;
+  background-color: #eee;
+  margin: 0;
+  padding: 10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+}
