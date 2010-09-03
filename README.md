@@ -96,6 +96,7 @@ In order to display a dialog, you **must** define all the non optional propertie
 v2.0.0 - 2010-09-03
 
 Major rewrite:
+
   * NEW: ability to display both a tip and a dialog for an element (each can define custom options),
   * NEW: dialog can have their content loaded through AJAX,
   * API break: tipswift() has been renammed to tipSwift(),
