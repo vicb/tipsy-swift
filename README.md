@@ -93,7 +93,7 @@ In order to display a dialog, you **must** define all the non optional propertie
 
 ## History ##
 
-v2.0.0
+v2.0.0 - 2010-09-03
 
 Major rewrite:
   * NEW: ability to display both a tip and a dialog for an element (each can define custom options),
