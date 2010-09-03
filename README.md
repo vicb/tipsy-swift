@@ -36,13 +36,13 @@ Use a jQuery selector in your document ready function:
 
 Tipswift options are listed in a javascript object (with their default values):
 
-    $.fn.tipSwift.defaults = {
+    $.tipSwift.defaults = {
       live: false,                                          // [GLOBAL] use live events (make tipswift work on dynamically added items)
       gravity: 'n',                                         // tip gravity
       offset: 0,                                            // offset from the element edge in pixel
-      opacity: 0.8,                                         // opacity [0..1]
-      showEffect: $.fn.tipSwift.effects.show,               // effect used to show the tip
-      hideEffect: $.fn.tipSwift.effects.hide,               // effect used to hide the tip (must eventually remove() the tip)
+      opacity: 0.9,                                         // opacity [0..1]
+      showEffect: $.tipSwift.effects.show,                  // effect used to show the tip
+      hideEffect: $.tipSwift.effects.hide,                  // effect used to hide the tip (must eventually remove() the tip)
       extraClass: [],                                       // extra classes to add the tip
       tip: {
         trigger: 'events',                                  // what triggers showing the tip ('events' or 'manual')
@@ -57,8 +57,8 @@ Tipswift options are listed in a javascript object (with their default values):
       dialog: {
         trigger: 'events',                                  // what triggers showing the dialog ('events' or 'manual')
         showOn: ['click'],                                  // which events trigger showing the dialog
-        dialogTemplate: $.fn.tipSwift.templates.dialog,     // the function used to build the dialog markup
-        buttonTemplate: $.fn.tipSwift.templates.button      // the function used to build the buttons markup
+        dialogTemplate: $.tipSwift.templates.dialog,        // the function used to build the dialog markup
+        buttonTemplate: $.tipSwift.templates.button         // the function used to build the buttons markup
       }
     };
 
@@ -96,9 +96,10 @@ In order to display a dialog, you **must** define all the non optional propertie
 v2.0.0
 
 Major rewrite:
-  * new: ability to display both a tip and a dialog for an element (each can define custom options),
+  * NEW: ability to display both a tip and a dialog for an element (each can define custom options),
+  * NEW: dialog can have their content loaded through AJAX,
   * API break: tipswift() has been renammed to tipSwift(),
-  * API break: options have changed,
+  * API break: the option format has changed.
 
 v1.1.2 - 2010-08-19
 

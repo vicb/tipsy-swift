@@ -2,7 +2,7 @@
   font-size: 0.7em;
 }
 
-.tipswift-title, .tipswift-body, .tipswift-button {
+.tipswift-title, .tipswift-body, .tipswift-buttons {
   display: block;
   margin-bottom: 0.5em;
 }
@@ -12,8 +12,12 @@
   font-size: 1.2em;
 }
 
-.tipswift-button {
+.tipswift-buttons {
   text-align: right;
+}
+
+.tipswift-body img {
+  padding: 10px;
 }
 
 .tipswift.dialog.delete .tipswift-inner {

@@ -17,9 +17,9 @@
         $('.delayed-tip').tipSwift({tip: {delayIn: 1000, delayOut: 1000}});
 
         $('.simple-dialog').tipSwift({
-          gravity: $.fn.tipSwift.gravity.autoWE,
-          showEffect: $.fn.tipSwift.effects.slideOutWE,
-          hideEffect: $.fn.tipSwift.effects.slideInWE,
+          gravity: $.tipSwift.gravity.autoWE,
+          showEffect: $.tipSwift.effects.slideOutWE,
+          hideEffect: $.tipSwift.effects.slideInWE,
           tip: {},
           dialog: {
             title: 'Dialog',
@@ -34,6 +34,7 @@
         $('#add-item').tipSwift({
           tip: {},
           dialog: {
+            gravity: $.tipSwift.gravity.autoNS,
             title: 'Add an item',
             body: 'Item name: <input type="text"/>',
             buttons: {
@@ -57,17 +58,18 @@
 
         // Remove an item
         $('#list-item a').tipSwift({
-          gravity: $.fn.tipSwift.gravity.autoWE,
+          gravity: $.tipSwift.gravity.autoWE,
           live: true,
           tip: {
+            offset: 5,
             gravity: 'e',
             opacity: 0.6,
-            showEffect: $.fn.tipSwift.effects.fadeIn,
-            hideEffect: $.fn.tipSwift.effects.fadeOut
+            showEffect: $.tipSwift.effects.fadeIn,
+            hideEffect: $.tipSwift.effects.fadeOut
           },
           dialog: {
-            showEffect: $.fn.tipSwift.effects.slideOutWE,
-            hideEffect: $.fn.tipSwift.effects.slideInWE,
+            showEffect: $.tipSwift.effects.slideOutWE,
+            hideEffect: $.tipSwift.effects.slideInWE,
             opacity: 0.9,
             extraClass: ['delete'],
             title: 'Confirmation',
@@ -79,7 +81,7 @@
                   $(e.target).parents('li').fadeOut(function() { $(this).remove() });                  
                 }
               },
-              no: {label: 'no'}
+              no: { label: 'no' }
             }
           }
         });
@@ -87,9 +89,9 @@
         // Dynamic content
         var seen = 1;
         $('#list-item-dynamic a').tipSwift({
-          gravity: $.fn.tipSwift.gravity.autoWE,
-          showEffect: $.fn.tipSwift.effects.slideOutWE,
-          hideEffect: $.fn.tipSwift.effects.slideInWE,
+          gravity: $.tipSwift.gravity.autoWE,
+          showEffect: $.tipSwift.effects.slideOutWE,
+          hideEffect: $.tipSwift.effects.slideInWE,
           tip: {
             gravity: 'e',
             title: function() { return 'opened ' + (seen - 1) + ' times'; }
@@ -98,11 +100,38 @@
             title: function() { return seen < 4 ? 'Keep going...' : 'Stop playing now !'; },
             body: function() { return 'I have been opened ' + (seen++) + ' times'; },
             buttons: {
-              close: {label: 'close'}
+              close: { label: 'close' }
             }
           }
         });
 
+        // Ajax content
+        var seen = 1;
+        $('#list-item-ajax a').tipSwift({
+          gravity: $.tipSwift.gravity.autoWE,
+          showEffect: $.tipSwift.effects.slideOutWE,
+          hideEffect: $.tipSwift.effects.slideInWE,
+          tip: {
+            gravity: 'e'
+          },
+          dialog: {
+            title: 'Loading...',
+            body: function(title, body, tipswift) {
+              tipswift.toggleButtons(false);
+              setTimeout(function() {
+                $(body).load('ajax.txt', function() {
+                  $(title).html('Dialog loaded');
+                  tipswift.toggleButtons(true);
+                  tipswift.setTipPosition();
+                })
+              }, 2000);
+              return '<img src="../images/wait.gif" width="31" height="31" />';
+            },
+            buttons: {
+              close: { label: 'close' }
+            }
+          }
+        });
       });
     //]]></script>
 
@@ -146,6 +175,14 @@
         <li>foo<a class="link" href="#" title="test">x</a></li>
       </ul>
     </div>
+
+    <h3>AJAX loaded content</h3>
+    <div class="frame">
+      <ul id="list-item-ajax">
+        <li>foo<a class="link" href="#" title="click to demonstrate ajax content loading">x</a></li>
+      </ul>
+    </div>
+
 
     <h2>Information</h2>
     <div class="frame">
