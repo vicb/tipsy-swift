@@ -60,7 +60,7 @@
           gravity: $.fn.tipSwift.gravity.autoWE,
           live: true,
           tip: {
-            gravity: 's',
+            gravity: 'e',
             opacity: 0.6,
             showEffect: $.fn.tipSwift.effects.fadeIn,
             hideEffect: $.fn.tipSwift.effects.fadeOut
@@ -91,10 +91,11 @@
           showEffect: $.fn.tipSwift.effects.slideOutWE,
           hideEffect: $.fn.tipSwift.effects.slideInWE,
           tip: {
+            gravity: 'e',
             title: function() { return 'opened ' + (seen - 1) + ' times'; }
           },
           dialog: {
-            title: function() { return seen < 4 ? 'Keep going' : 'Stop playing now !'; },
+            title: function() { return seen < 4 ? 'Keep going...' : 'Stop playing now !'; },
             body: function() { return 'I have been opened ' + (seen++) + ' times'; },
             buttons: {
               close: {label: 'close'}
@@ -117,11 +118,11 @@
 
     <h3>Simple tip</h3>
 
-    <a href="#" class="simple-tip" title="working ?">hover over me</a>
+    <a href="#" class="simple-tip" title="I am tip">hover over me</a>
 
     <h3>Delayed</h3>
 
-    <a href="#" class="delayed-tip" title="working ?">hover over me and wait!</a>
+    <a href="#" class="delayed-tip" title="I am a delayed tip">hover over me and wait!</a>
 
 
     <h3>Dialogs</h3>
