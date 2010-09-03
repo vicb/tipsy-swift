@@ -93,6 +93,10 @@ In order to display a dialog, you **must** define all the non optional propertie
 
 ## History ##
 
+v2.0.1 - 2010-09-03
+
+  * fix for IE
+
 v2.0.0 - 2010-09-03
 
 Major rewrite:
