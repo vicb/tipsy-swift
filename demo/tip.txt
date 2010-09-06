@@ -1,0 +1,1 @@
+This is an ajax loaded tip. Click me !

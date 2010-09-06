@@ -12,78 +12,85 @@
 
     <script type="text/javascript">//<![CDATA[
       jQuery(function($) {
-        $('.simple-tip').tipSwift({tip: {}});
+        $('.simple-tip').tipSwift({ live: false, plugins: [ $.tipSwift.plugins.tip() ] });
 
-        $('.delayed-tip').tipSwift({tip: {delayIn: 1000, delayOut: 1000}});
+        $('.delayed-tip').tipSwift({
+          plugins: [$.tipSwift.plugins.tip({ delayIn: 1000, delayOut: 1000 })]
+        });
 
         $('.simple-dialog').tipSwift({
           gravity: $.tipSwift.gravity.autoWE,
           showEffect: $.tipSwift.effects.slideOutWE,
           hideEffect: $.tipSwift.effects.slideInWE,
-          tip: {},
-          dialog: {
-            title: 'Dialog',
-            body: 'This is my body !',
-            buttons: {
-              close : { label: 'close' }
-            }
-          }
+          plugins: [
+            $.tipSwift.plugins.tip(),
+            $.tipSwift.plugins.dialog({
+              title: 'Dialog',
+              body: 'This is my body !',
+              buttons: {
+                close : { label: 'close' }
+              }
+            })
+          ]
         });
 
-        // Add an item
+        // add an item
         $('#add-item').tipSwift({
-          tip: {},
-          dialog: {
-            gravity: $.tipSwift.gravity.autoNS,
-            title: 'Add an item',
-            body: 'Item name: <input type="text"/>',
-            buttons: {
-              add: {
-                label: 'Add',
-                action: function() {
-                  var input = this.find(':text');
-                  if (!input.val()) {
-                    input.css('border-color', 'red');
-                    return false;
+          plugins: [
+            $.tipSwift.plugins.tip(),
+            $.tipSwift.plugins.dialog({
+              gravity: $.tipSwift.gravity.autoNS,
+              title: 'Add an item',
+              body: 'Item name: <input type="text"/>',
+              buttons: {
+                add: {
+                  label: 'Add',
+                  action: function() {
+                    var input = this.find(':text');
+                    if (!input.val()) {
+                      input.css('border-color', 'red');
+                      return false;
+                    } else {
+                      $('<li/>').text(input.val()).append('<a class="link" href="#" title="delete">x</a>').appendTo('#list-item');
+                    }
                   }
-                  else {
-                    $('<li/>').text(input.val()).append('<a class="link" href="#" title="delete">x</a>').appendTo('#list-item');
-                  }
-                }
-              },
-              cancel: { label: 'cancel'}
-            }
-          }
+                },
+                cancel: { label: 'cancel'}
+              }
+            })
+          ]
         });
 
         // Remove an item
         $('#list-item a').tipSwift({
           gravity: $.tipSwift.gravity.autoWE,
           live: true,
-          tip: {
-            offset: 5,
-            gravity: 'e',
-            opacity: 0.6,
-            showEffect: $.tipSwift.effects.fadeIn,
-            hideEffect: $.tipSwift.effects.fadeOut
-          },
-          dialog: {
-            showEffect: $.tipSwift.effects.slideOutWE,
-            hideEffect: $.tipSwift.effects.slideInWE,
-            opacity: 0.9,
-            extraClass: ['delete'],
-            title: 'Confirmation',
-            body: 'Do you really want to delete this item ?',
-            buttons: {
-              yes: {
-                label: 'Yes',
-                action: function(e) {
-                  $(e.target).parents('li').fadeOut(function() { $(this).remove() });                  
-                }
-              },
-              no: { label: 'no' }
-            }
-          }
+          plugins: [
+            $.tipSwift.plugins.tip({
+              offset: 5,
+              gravity: 'e',
+              opacity: 0.6,
+              showEffect: $.tipSwift.effects.fadeIn,
+              hideEffect: $.tipSwift.effects.fadeOut
+            }),
+            $.tipSwift.plugins.dialog({
+              showEffect: $.tipSwift.effects.slideOutWE,
+              hideEffect: $.tipSwift.effects.slideInWE,
+              opacity: 0.9,
+              extraClass: ['delete'],
+              title: 'Confirmation',
+              body: 'Do you really want to delete this item ?',
+              buttons: {
+                yes: {
+                  label: 'Yes',
+                  action: function(e) {
+                    $(e.target).parents('li').fadeOut(function() { $(this).remove() });
+                  }
+                },
+                no: { label: 'no' }
+              }
+            })
+          ]
         });
 
         // Dynamic content
@@ -92,47 +99,58 @@
           gravity: $.tipSwift.gravity.autoWE,
           showEffect: $.tipSwift.effects.slideOutWE,
           hideEffect: $.tipSwift.effects.slideInWE,
-          tip: {
-            gravity: 'e',
-            title: function() { return 'opened ' + (seen - 1) + ' times'; }
-          },
-          dialog: {
-            title: function() { return seen < 4 ? 'Keep going...' : 'Stop playing now !'; },
-            body: function() { return 'I have been opened ' + (seen++) + ' times'; },
-            buttons: {
-              close: { label: 'close' }
-            }
-          }
+          plugins: [
+            $.tipSwift.plugins.tip({
+              gravity: 'e',
+              title: function() { return 'opened ' + (seen - 1) + ' times'; }
+            }),
+            $.tipSwift.plugins.dialog({
+              title: function() { return seen < 4 ? 'Keep going...' : 'Stop playing now !'; },
+              body: function() { return 'I have been opened ' + (seen++) + ' times'; },
+              buttons: {
+                close: { label: 'close' }
+              }
+            })
+          ]
         });
 
         // Ajax content
-        var seen = 1;
         $('#list-item-ajax a').tipSwift({
           gravity: $.tipSwift.gravity.autoWE,
           showEffect: $.tipSwift.effects.slideOutWE,
           hideEffect: $.tipSwift.effects.slideInWE,
-          tip: {
-            gravity: 'e'
-          },
-          dialog: {
-            title: 'Loading...',
-            body: function(title, body, tipswift) {
-              tipswift.toggleButtons(false);
-              setTimeout(function() {
-                $(body).load('ajax.txt', function() {
-                  $(title).html('Dialog loaded');
-                  tipswift.toggleButtons(true);
-                  tipswift.setTipPosition();
-                })
-              }, 2000);
-              return '<img src="../images/wait.gif" width="31" height="31" />';
-            },
-            buttons: {
-              close: { label: 'close' }
-            }
-          }
+          plugins: [
+            $.tipSwift.plugins.tip({
+              gravity: 'e',
+              filterContent: function(content, positionner) {
+                content.html('<img src="../images/wait.gif" width="31" height="31" />');
+                setTimeout(function() {
+                  content.load('tip.txt', function() { positionner(); })
+                }, 2000);
+              }
+            }),
+            $.tipSwift.plugins.dialog({
+              title: 'Loading...',
+              body: '<img src="../images/wait.gif" width="31" height="31" />',
+              buttons: {
+                close: { label: 'close' }
+              },
+              filterContent: function(title, body, buttons, positionner) {
+                buttons.hide();
+                setTimeout(function() {
+                  body.load('dialog.txt', function() {
+                    title.html('Dialog loaded');
+                    buttons.show();
+                    positionner();
+                  })
+                }, 2000);
+              }
+            })
+          ]
         });
+
       });
+
     //]]></script>
 
   </head>
