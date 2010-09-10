@@ -18,7 +18,6 @@ both a tip and a dialog can be displayed on an element.
 
 Include jquery and tipswift in the document head:
 
-    <script type="text/javascript" src="jquery.tipsy.js"></script>
     <script type="text/javascript" src="jquery.tipswift.js"></script>
     <link rel="stylesheet" type="text/css" href="jquery.tipswift.css" />
 
@@ -27,8 +26,7 @@ Use a jQuery selector in your document ready function:
     jQuery(function($) {
         $("#target").tipSwift({ 
           <options>,
-          tip: { <options for the tip> },
-          dialog: { <options for the dialog> }
+          plugins: [...]
         });
     });
 
@@ -36,39 +34,94 @@ Use a jQuery selector in your document ready function:
 
 Tipswift options are listed in a javascript object (with their default values):
 
-    $.tipSwift.defaults = {
-      live: false,                                          // [GLOBAL] use live events (make tipswift work on dynamically added items)
-      gravity: 'n',                                         // tip gravity
-      offset: 0,                                            // offset from the element edge in pixel
-      opacity: 0.9,                                         // opacity [0..1]
-      showEffect: $.tipSwift.effects.show,                  // effect used to show the tip
-      hideEffect: $.tipSwift.effects.hide,                  // effect used to hide the tip (must eventually remove() the tip)
-      extraClass: [],                                       // extra classes to add the tip
-      tip: {
-        trigger: 'events',                                  // what triggers showing the tip ('events' or 'manual')
-        delayIn: 0,                                         // delay before showing the tip in ms
-        delayOut: 0,                                        // delay before hiding the tip in ms
-        html: false,                                        // wether to use html for the tip content
-        title: 'title',                                     // attribute name or function to use to set the tip title
-        fallback: '',                                       // fallback text when the title is empty
-        showOn: ['mouseenter', 'focusin'],                  // which events trigger showing the tip
-        hideOn: ['mouseleave', 'focusout']                  // which events trigger hiding the tip
-      },
-      dialog: {
-        trigger: 'events',                                  // what triggers showing the dialog ('events' or 'manual')
-        showOn: ['click'],                                  // which events trigger showing the dialog
-        dialogTemplate: $.tipSwift.templates.dialog,        // the function used to build the dialog markup
-        buttonTemplate: $.tipSwift.templates.button         // the function used to build the buttons markup
-      }
+    $.tipSwift.defaultCfg = {
+      live: false,                             // wether to use live type of event binding
+      gravity: 'n',                            // tip gravity
+      offset: 0,                               // offset from the element edge in pixel
+      opacity: 0.9,                            // opacity [0..1]
+      showEffect: $.tipSwift.effects.show,     // effect used to show the tip
+      hideEffect: $.tipSwift.effects.hide,     // effect used to hide the tip (must eventually remove() the tip)
+      extraClass: [],                          // extra classes to add the tip
+      html: false,                             // wether to use html for the tip content
+      plugins: []                              // the list of plugins
     };
 
-### Notes ###
+## Plugins ##
 
-The 'live' options is global (you can not define a specific value for tip or dialog).
-All others options can be overriden at a tip / dialog level.
+### tip ###
 
-Do not define tip in the options when calling tipSwift if you don't want to use a tip,
-the same is also true for dialog.
+Use this plugin to display tips
+
+#### usage ####
+
+    $(<selector>).tipSwift({
+      gravity: $.tipSwift.gravity.autoWE,
+      live: true,
+      plugins: [
+        $.tipSwift.plugins.tip({
+          offset: 5,
+          gravity: 'e',
+          opacity: 0.6,
+          showEffect: $.tipSwift.effects.fadeIn,
+          hideEffect: $.tipSwift.effects.fadeOut
+        })
+      ]
+    });
+
+#### configuration ####
+
+All tipSwift options can be overriden in the plugin configuration
+
+    pluginCfg: {
+      showOn: ['mouseenter', 'focusin'],
+      hideOn: ['mouseleave', 'focusout'],
+      title: 'title',
+      fallback: '',
+      delayIn: 0,
+      delayOut: 0,
+      filterContent: $.noop
+    }
+
+### dialog ###
+
+Use this plugin to display dialogs
+
+#### usage ####
+
+        $('#list-item a').tipSwift({
+          gravity: $.tipSwift.gravity.autoWE,
+          live: true,
+          plugins: [
+            $.tipSwift.plugins.dialog({
+              showEffect: $.tipSwift.effects.slideOutWE,
+              hideEffect: $.tipSwift.effects.slideInWE,
+              opacity: 0.9,
+              extraClass: ['delete'],
+              title: 'Confirmation',
+              body: 'Do you really want to delete this item ?',
+              buttons: {
+                yes: {
+                  label: 'Yes',
+                  action: function(e) {
+                    $(e.target).parents('li').fadeOut(function() { $(this).remove() });
+                  }
+                },
+                no: { label: 'no' }
+              }
+            })
+          ]
+        });
+
+#### configuration ####
+
+All tipSwift options can be overriden in the plugin configuration
+
+    pluginCfg: {
+      showOn: ['click'],
+      dialogTemplate: $.tipSwift.templates.dialog,        // the function used to build the dialog markup
+      buttonTemplate: $.tipSwift.templates.dialogButton,  // the function used to build the buttons markup
+      filterContent: $.noop
+    }
 
 In order to display a dialog, you **must** define all the non optional properties:
 
@@ -78,6 +131,7 @@ In order to display a dialog, you **must** define all the non optional propertie
   - label: button label,
   - action (optional): button onclick callback:
     - receive the event targeting the tipswift target as a parameter,
+    - inside the function `this` is the tip jQuery object,
     - should return false to close the dialog,
     - when no action is specified, the default is to close the dialog.
 
@@ -92,6 +146,11 @@ In order to display a dialog, you **must** define all the non optional propertie
 * [Victor Berchet](http://github.com/vicb) is the author of tipswift.
 
 ## History ##
+
+v2.0.1-dev
+
+  * API break: Modular architecture,
+  * 2 built-in plugins: tip & dialogs
 
 v2.0.1 - 2010-09-03
 
