@@ -135,13 +135,14 @@
               buttons: {
                 close: { label: 'close' }
               },
-              filterContent: function(title, body, buttons, positionner) {
+              filterContent: function(title, body, buttons, positionner, ts) {
                 buttons.hide();
                 setTimeout(function() {
                   body.load('dialog.txt', function() {
                     title.html('Dialog loaded');
                     buttons.show();
                     positionner();
+                    ts.focus();
                   })
                 }, 2000);
               }
