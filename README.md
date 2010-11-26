@@ -147,7 +147,7 @@ In order to display a dialog, you **must** define all the non optional propertie
 
 ## History ##
 
-v2.0.1-dev
+v2.1.0
 
   * API break: Modular architecture,
   * 2 built-in plugins: tip & dialogs
