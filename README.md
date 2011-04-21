@@ -147,6 +147,10 @@ In order to display a dialog, you **must** define all the non optional propertie
 
 ## History ##
 
+v2.1.1
+
+  * Fix for hiding the native tooltip on IE9
+
 v2.1.0
 
   * API break: Modular architecture,
